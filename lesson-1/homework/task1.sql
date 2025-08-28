@@ -49,4 +49,15 @@ CREATE TABLE Students (StudentID INT PRIMARY KEY, Name VARCHAR (50), Age INT)
 
 8)
 INSERT INTO Students (StudentID, Name, Age) VALUES (3, 'SARDOR', 21)
+INSERT INTO Students (StudentID, Name, Age) VALUES (2, 'AZIZBEK', 22)
+INSERT INTO Students (StudentID, Name, Age) VALUES (4, 'DILMUROD', 22)
+
 SELECT*FROM Students
+
+
+9)
+1. search  adventureworks sample database in google
+2. download 2022 version
+3. copy file in dowloads
+4. past file in backup file
+5. in SSMS, database>  estore database>  device>  ...>  add>  choose adventureworks sample database 2022>  ok>  refresh
