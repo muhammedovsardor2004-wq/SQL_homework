@@ -1,0 +1,163 @@
+1)
+SELECT CATEGORY,
+               SUM ( STOCKQUANTITY) AS TOTAL_Q
+FROM Products
+GROUP BY Category
+ORDER BY TOTAL_Q DESC
+
+2)
+SELECT ProductName,
+                  AVG ( PRICE ) AS AVERAGE_PRICE
+FROM Products
+WHERE Category = 'Electronics'
+GROUP BY ProductName
+
+3)
+SELECT *FROM Customers
+WHERE City LIKE 'L%'
+
+4)
+SELECT ProductName FROM Products
+WHERE ProductName LIKE '%ER'
+
+5)
+SELECT *FROM Customers
+WHERE Country LIKE '%A'
+
+6)
+SELECT ProductName,
+                   MAX ( PRICE ) AS HIGHEST_PRICE
+FROM Products
+GROUP BY ProductName
+
+7)
+SELECT STOCKQUANTITY,
+CASE 
+     WHEN STOCKQUANTITY < 30 THEN 'LOW_STOCK'
+	 ELSE 'SUFFICIENT'
+	 END AS STOCK_LEVEL
+FROM Products
+
+8)
+SELECT Country,
+               COUNT ( CUSTOMERID) AS TOTAL_CUSTOMERS
+FROM Customers
+GROUP BY Country
+ORDER BY TOTAL_CUSTOMERS DESC
+
+9) 
+SELECT MIN (QUANTITY) AS MIN_Q , MAX (QUANTITY)AS MAX_Q FROM Orders
+
+
+
+10)
+
+SELECT DISTINCT CUSTOMERID FROM Orders
+WHERE ORDERDATE BETWEEN '2023-01-01' AND '2023-01-31' AND CustomerID NOT IN (SELECT CustomerID FROM Invoices
+Where CustomerId is not null
+)
+SELECT DISTINCT CUSTOMERID FROM Orders
+WHERE ORDERDATE BETWEEN '2023-01-01' AND '2023-01-31' AND CustomerID NOT IN (SELECT CustomerID FROM Invoices)
+
+
+11)
+SELECT ProductName FROM Products
+UNION ALL
+SELECT ProductName FROM Products_Discounted
+
+12)
+	SELECT ProductName FROM Products
+UNION 
+SELECT ProductName FROM Products_Discounted
+
+13)
+SELECT YEAR ( ORDERDATE) AS YEARS,
+       AVG (TOTALAMOUNT) AS AVERAGE_AMOUNT
+FROM Orders
+GROUP BY YEAR ( ORDERDATE)
+
+14)
+SELECT PRODUCTNAME,
+CASE 
+    WHEN PRICE > 500 THEN 'HIGH'
+	WHEN PRICE BETWEEN 100 AND 500 THEN ' MID'
+	WHEN PRICE < 100 THEN 'LOW'
+	END AS PRICEGROUP 
+FROM Products
+
+15)
+SELECT *INTO Population_Each_Year 
+FROM
+(
+SELECT DISTRICT_NAME, YEAR, POPULATION FROM city_population
+) AS POPULATION
+
+PIVOT 
+(
+SUM (POPULATION) FOR YEAR IN ([2012], [2013])
+)AS POPULATION_PVT
+
+
+16)
+SELECT ProductID,
+       SUM (SALEAMOUNT) AS TOTAL_SALE
+FROM Sales
+GROUP BY ProductID
+
+17)
+SELECT  ProductName FROM Products
+WHERE ProductName LIKE '%OO%'
+
+18)
+SELECT * INTO Population_Each_City 
+FROM
+
+(
+SELECT YEAR ,DISTRICT_NAME AS CITY, POPULATION FROM city_population
+) AS POPULATION
+
+PIVOT 
+(
+SUM (POPULATION) FOR CITY IN ([Bektemir], [Chilonzor], [Yakkasaroy])
+) PAPULATION_PVT
+
+
+
+19)
+SELECT TOP 3 CUSTOMERID, TOTALAMOUNT AS TOTALSPENT FROM Invoices
+ORDER BY TOTALAMOUNT DESC 
+
+20)
+
+SELECT DISTRICT_NAME, POPULATION, YEAR FROM Population_Each_Year 
+UNPIVOT
+(
+POPULATION FOR YEAR IN ([2012], [2013])
+) AS UNPVT
+
+21)
+SELECT 
+    P.ProductName,
+    COUNT(S.SaleID) AS Times_Sold
+FROM Products P
+INNER JOIN Sales S
+    ON P.ProductID = S.ProductID
+GROUP BY P.ProductName
+ORDER BY Times_Sold DESC;
+
+
+22)
+SELECT * FROM Population_Each_City
+SELECT * FROM city_population
+
+SELECT 
+    Year,
+    District_Name,
+    Population
+FROM Population_Each_City
+UNPIVOT
+(
+    Population FOR District_Name IN ([Bektemir], [Chilonzor], [Yakkasaroy])
+) AS Unpvt;
+
+
